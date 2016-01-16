@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+
+  "name": "tryhttps",
+  "description": "tryhttps",
+  "version": "1.0",
+
+  "permissions": ["background", "tabs", "*://*/*"],
+  "background": {
+    "scripts": ["tryhttps.js"],
+    "persistent": true
+  }
+}
