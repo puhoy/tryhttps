@@ -7,7 +7,12 @@ pretty early version, but i already use it, seems to work.
 
 ## installation
 
-
+ clone it to some place
+ 
+    git clone git@github.com:puhoy/tryhttps.git
+   
+ in chrome, open extensions, activate developer mode and choose "load unpacked extensions" 
+ 
 
 ## planned for when i have more time
 
