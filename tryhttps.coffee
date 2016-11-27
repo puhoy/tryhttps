@@ -18,7 +18,7 @@ addToHttpList = (url)->
     #console.log('new httplist')
     console.log(httplist...)
 
-_tryDomain = (domain)->
+_tryDomain = (domain, path, tabId, forward=true)->
   xhr = new XMLHttpRequest();
   xhr.open("GET", "https://" + domain, true); # async
   got_200 = false
@@ -27,6 +27,8 @@ _tryDomain = (domain)->
       if xhr.status == 200
         got_200 = true
         addToHttpsList('https://' + domain)
+        if forward
+          forward_to('https://' + [domain, path].join('/'), tabId)
   xhr.timeout = 10000; # 10s
   xhr.ontimeout = () ->
     got_200 = false
@@ -44,7 +46,7 @@ _getProtocol_Domain_Path = (url) ->
   path = arr[3..]
   return [prot, dom, path.join('/')]
 
-tryHttps = (url) ->
+tryHttps = (url, tabId) ->
   #return url + '?'
   pdm = _getProtocol_Domain_Path(url)
   protocol = pdm[0]
@@ -57,40 +59,40 @@ tryHttps = (url) ->
       #console.log(domain + 'is blacklisted, wont redirect')
       return false
 
+    # if https, get this in the httpslist if its not in
     if protocol == 'https:'
       if (domain in httpslist)
-        #console.log(domain + ', we can redirect')
         return false
       else
-        _tryDomain(domain)
+        _tryDomain(domain, path, tabId, false)
         return false
 
     #console.log('here we go, trying protocols and stuff..')
-    #wenn http:
     if protocol == 'http:'
       if (domain in httplist)
-        #console.log('already tried, no https for ' + domain)
+        console.log('already tried, no https for ' + domain)
         return false
 
       else
         #return 'https://' + [domain, path].join('/')
-        if _tryDomain(domain)
-          return 'https://' + [domain, path].join('/')
+        if _tryDomain(domain, path, tabId)
+          return true
         else
           return false
+
+forward_to = (newUrl, tabId) ->
+  console.log('forwarding tab ' + tabId + ' to ' + newUrl)
+  chrome.tabs.update(tabId, {url: newUrl});
+
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) ->
   if changeInfo
     if changeInfo.url
-      newUrl = tryHttps(changeInfo.url)
-      if newUrl
-        chrome.tabs.update(tabId, {url: newUrl});
+      tryHttps(changeInfo.url, tabId)
 );
 
 chrome.tabs.onCreated.addListener((tabId, changeInfo, tab) ->
   if changeInfo
     if changeInfo.url
-      newUrl = tryHttps(changeInfo.url)
-      if newUrl
-        chrome.tabs.update(tabId, {url: newUrl});
+      tryHttps(changeInfo.url, tabId)
 );
