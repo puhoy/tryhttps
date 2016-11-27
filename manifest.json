@@ -4,7 +4,7 @@
   "name": "tryhttps",
   "description": "tryhttps",
   "version": "1.0",
-  "permissions": ["background", "tabs", "*://*/*", "contextMenus"],
+  "permissions": ["background", "tabs", "*://*/*", "contextMenus", "storage"],
   "background": {
     "scripts": ["tryhttps.js"],
     "persistent": true
