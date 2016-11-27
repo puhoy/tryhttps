@@ -10,7 +10,7 @@
     "persistent": true
   },
   "browser_action": {
-      "default_title": "Some tooltip",
+      "default_title": "tryhttps",
       "default_popup": "popup.html"
   }
 }
