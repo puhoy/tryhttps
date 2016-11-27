@@ -6,8 +6,10 @@ lists = {};
 
 lists['blacklist'] = getList('blacklist');
 
+lists['httpslist'] = getList('httpslist');
+
 chrome.tabs.query(query, function(tabs) {
-  var currentTab, domain, element;
+  var content, currentTab, domain, element, statediv;
   currentTab = tabs[0];
   console.log(currentTab.url);
   domain = _getProtocol_Domain_Path(currentTab.url)[1];
@@ -27,6 +29,11 @@ chrome.tabs.query(query, function(tabs) {
         name: 'bl'
       }, null);
     });
+    if (indexOf.call(lists["httpslist"], domain) < 0) {
+      statediv = document.getElementById('state');
+      content = document.createTextNode("no https support found");
+      statediv.appendChild(content);
+    }
   }
   return element.outerHTML = "";
 });

@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="picnic.min.css">
     <style>
-        .shyButton {
+        .shyButton, #state {
             font-size: .75em;
         }
     </style>
@@ -11,8 +11,9 @@
 <body  >
 <div id="buttons">
     <button class="shyButton warning" id="blacklist">dont try https for this domain</button>
-    <button class="shyButton pure-button" id="unblacklist">try to forwarding to https</button>
+    <button class="shyButton pure-button" id="unblacklist">enable https forwarding</button>
 </div>
+<div id="state"></div>
 <script type="text/javascript" src="helpers.js"></script>
 <script type="text/javascript" src="popup.js"></script>
 </body>

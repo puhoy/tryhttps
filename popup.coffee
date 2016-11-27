@@ -1,5 +1,6 @@
 lists = {}
 lists['blacklist'] = getList('blacklist')
+lists['httpslist'] = getList('httpslist')
 
 chrome.tabs.query(query,
   (tabs) ->
@@ -23,6 +24,12 @@ chrome.tabs.query(query,
                 name: 'bl'
             }, null)
         );
+
+      if domain not in lists["httpslist"]
+        statediv = document.getElementById('state')
+        content = document.createTextNode("no https support found");
+        statediv.appendChild(content);
+
     element.outerHTML = "";
 )
 
