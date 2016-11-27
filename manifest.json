@@ -4,10 +4,13 @@
   "name": "tryhttps",
   "description": "tryhttps",
   "version": "1.0",
-
-  "permissions": ["background", "tabs", "*://*/*"],
+  "permissions": ["background", "tabs", "*://*/*", "contextMenus"],
   "background": {
     "scripts": ["tryhttps.js"],
     "persistent": true
+  },
+  "browser_action": {
+      "default_title": "Some tooltip",
+      "default_popup": "popup.html"
   }
 }
