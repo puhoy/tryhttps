@@ -1,7 +1,19 @@
-<html>
-  <body style="width: 150px">
-    <button id="blacklist">dont try for this domain</button>
-    <button id="unblacklist">try to forward to https</button>
-    <script type="text/javascript" src="popup.js"></script>
-  </body>
+<html xmlns="http://www.w3.org/1999/xhtml" style="min-width: 200px; height: 50px">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="picnic.min.css">
+    <style>
+        .shyButton {
+            font-size: .75em;
+        }
+    </style>
+</head>
+<body  >
+<div id="buttons">
+    <button class="shyButton warning" id="blacklist">dont try https for this domain</button>
+    <button class="shyButton pure-button" id="unblacklist">try to forwarding to https</button>
+</div>
+<script type="text/javascript" src="helpers.js"></script>
+<script type="text/javascript" src="popup.js"></script>
+</body>
 </html>
